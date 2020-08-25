@@ -12,7 +12,6 @@ public class User extends Executor {
 	public int id;
 	public String username;
 	public String customName;
-	public Rank rank;
 	public boolean friendsOpen;
 	public int xp;
 	public int coins;
@@ -59,6 +58,11 @@ public class User extends Executor {
 		return false;
 	}
 	
+	public String getBuiltName() {
+		return this.getCustomName();
+	}
+
+	@Override
 	public boolean hasPermission(String perm) {
 		if(rank.hasPermission(perm)) {
 			return true;
@@ -66,10 +70,6 @@ public class User extends Executor {
 			return true;
 		}
 		return false;		
-	}
-	
-	public String getBuiltName() {
-		return this.getCustomName();
 	}
 	
 }

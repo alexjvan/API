@@ -51,14 +51,14 @@ public class ConfigFile {
 		config.options().copyDefaults();
 	}
 	
-	public void addConfigValue(String name) {
-		Object value = config.get(name);
-		if(value != null)
+	public void tryAddValue(String name, Object value) {
+		Object val = config.get(name);
+		if(val != null) {
+			values.put(name, val);
+		} else {
 			values.put(name, value);
-	}
-	
-	public void addDefault(String name, Object value) {
-		config.addDefault(name, value);
+			save();
+		}
 	}
 	
 	public Object get(String name) {
@@ -78,11 +78,7 @@ public class ConfigFile {
 	public void set(String name, Object value) {
 		values.put(name, value);
 		config.set(name, value);
-		try {
-			config.save(file);
-		} catch (IOException e) {
-			instance.getLogger().log(Level.SEVERE, "Cannot save config file!", e);
-		}
+		save();
 	}
 	
 	public void save() {

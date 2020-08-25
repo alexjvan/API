@@ -4,8 +4,3 @@ version: 0.1
 author: alexjvan
 website: alexvanmatre.com
 prefix: API
-commands:
-    database:
-        description: Commands for the database
-        usage: /database
-        alias: database

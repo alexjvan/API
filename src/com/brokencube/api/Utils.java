@@ -11,4 +11,8 @@ public class Utils {
 			return false;
 		}
 	}
+	
+	public static boolean isLetter(char check) {
+	    return Character.isLetter(check);
+	}
 }

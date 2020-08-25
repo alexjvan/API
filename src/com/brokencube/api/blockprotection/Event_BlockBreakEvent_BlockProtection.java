@@ -12,7 +12,6 @@ public class Event_BlockBreakEvent_BlockProtection implements Listener {
 	
 	public Event_BlockBreakEvent_BlockProtection(API instance) {
 		this.instance = instance;
-		instance.getPR().registerPermission("bp.override.break");
 	}
 	
 	@EventHandler

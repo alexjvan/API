@@ -5,6 +5,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import com.brokencube.api.API;
+import com.brokencube.api.chat.ColorReplacer;
 import com.brokencube.api.user.User;
 
 public class Event_AsyncPlayerChatEvent_PlayerChatFormatter implements Listener {
@@ -21,18 +22,18 @@ public class Event_AsyncPlayerChatEvent_PlayerChatFormatter implements Listener 
 		
 		String format = (String)instance.getConf().get("chat.format");
 
-		String formatted = format;
+		String formatted = ColorReplacer.colorize(format);
 		
 		while(formatted.contains("{username}")) 
-			formatted = formatted.replace("{username}", u.getUserName());
+			formatted = formatted.replace("{username}", ColorReplacer.colorize(u.getUserName()));
 
 		while(formatted.contains("{rankprefix}")) 
-			formatted = formatted.replace("{rankprefix}", u.rank.prefix);
+			formatted = formatted.replace("{rankprefix}", ColorReplacer.colorize(u.rank.prefix));
 
 		while(formatted.contains("{message}")) 
 			formatted = formatted.replace("{message}", msg);
 		
-		instance.getUR().sendMessageAll(formatted);
+		instance.getUR().sendMessageAll(formatted, u.hasPermission("chat.color"));
 		
 		e.setCancelled(true);
 	}

@@ -21,7 +21,7 @@ public class UserRegister {
 	}
 	
 	private void binSearchAdd(User u, int left, int right) {
-		if(left != right) {
+		if(left < right) {
 			int mid = left + right / 2;
 			if(users.get(mid).username.equalsIgnoreCase(u.username))
 				return;
@@ -36,7 +36,6 @@ public class UserRegister {
 			} else {
 				users.add(left, u);
 			}
-			return;
 		}
 	}
 	
@@ -71,10 +70,15 @@ public class UserRegister {
 		return console;
 	}
 	
-	public void sendMessageAll(String message) {
-		for(int i = 0; i < users.size(); i++) {
-			users.get(i).sendMessage(message);
-		}
+	public void sendMessageAll(String message, boolean color) {
+		if(color)
+			for(int i = 0; i < users.size(); i++) {
+				users.get(i).sendMessage(message);
+			}
+		else
+			for(int i = 0; i < users.size(); i++) {
+				users.get(i).sendMessageNoColor(message);
+			}
 	}
 	
 }

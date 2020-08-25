@@ -28,10 +28,7 @@ public class Rank {
 		if(sRank.name().equalsIgnoreCase(other.name()))
 			return true;
 		for(int i = 0; i < inherits.size(); i++) {
-			if(inherits.get(i).sRank.name().equalsIgnoreCase(other.name()))
-				return true;
-			boolean internal = inherits.get(i).inherits(other);
-			if(internal)
+			if(inherits.get(i).inherits(other))
 				return true;
 		}
 		return false;

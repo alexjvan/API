@@ -1,33 +1,26 @@
 package com.brokencube.api.server.commands;
 
-import com.brokencube.api.API;
-import com.brokencube.api.Messages;
 import com.brokencube.api.command.Command;
-import com.brokencube.api.user.Console;
+import com.brokencube.api.command.SubCommand;
+import com.brokencube.api.command.exceptions.CommandNotFoundException;
+import com.brokencube.api.command.exceptions.IncorrectArgumentsException;
+import com.brokencube.api.command.exceptions.NoPermsException;
 import com.brokencube.api.user.Executor;
-import com.brokencube.api.user.User;
 
-public class Command_DB_Status extends Command {
+public class Command_DB_Status extends SubCommand {
 	
-	public Command_DB_Status(API instance) {
-		super(instance, "database status", "List the connection status of the database", "db.status", "/db status");
-	}
-
-	@Override
-	public void userExe(User u, String[] args) {
-		exe(u, args);
+	public Command_DB_Status(Command parent) {
+		super(parent, "db.status");
 	}
 	
 	@Override
-	public void consoleExe(Console c, String[] args) {
-		exe(c, args);
-	}
-	
-	private void exe(Executor e, String[] split) {
-		if(split.length > 2) {
-			e.sendMessage(Messages.wrongArgs);
-			return;
-		}
+	public void exe(Executor e, String[] split) throws CommandNotFoundException, IncorrectArgumentsException, NoPermsException {
+		if(!e.hasPermission(permString))
+			throw new NoPermsException();
+		
+		if(split.length != 2)
+			throw new IncorrectArgumentsException();
+		
 		if(instance.getDB().connectionOk()) {
 			e.sendMessage("&6Connection to the server is &a&lGOOD&r&6.");
 		} else {

@@ -23,5 +23,6 @@ public class Messages {
 	
 	// PERMS
 	public static String noperms = ColorReplacer.colorize(error+"&lYou don't have the permissions to do this.");
+	public static String nopermsbut = ColorReplacer.colorize(error+"&lYou don't have the permissions to do this, try using the help command.");
 	
 }

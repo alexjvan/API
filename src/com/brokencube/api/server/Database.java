@@ -29,6 +29,11 @@ public class Database {
 		this.user = (String)instance.getConf().get("db.user");
 		this.password = (String)instance.getConf().get("db.password");
 		
+		if(this.url == "" || this.user == "" || this.password == "") {
+			instance.getLogger().log(Level.SEVERE, "Part of the database record is not set in the config - exiting.");
+			instance.getServer().shutdown();
+		}
+		
 		String testquery = "SELECT VERSION()";
 		
 		try {

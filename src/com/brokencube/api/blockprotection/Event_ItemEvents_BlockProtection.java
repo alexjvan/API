@@ -15,7 +15,6 @@ public class Event_ItemEvents_BlockProtection implements Listener {
 	
 	public Event_ItemEvents_BlockProtection(API instance) {
 		this.instance = instance;
-		instance.getPR().registerPermission("bp.override.item");
 	}
 	
 	@EventHandler

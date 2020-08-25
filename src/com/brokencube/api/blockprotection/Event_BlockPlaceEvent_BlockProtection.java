@@ -12,7 +12,6 @@ public class Event_BlockPlaceEvent_BlockProtection implements Listener {
 	
 	public Event_BlockPlaceEvent_BlockProtection(API instance) {
 		this.instance = instance;
-		instance.getPR().registerPermission("bp.override.place");
 	}
 	
 	@EventHandler

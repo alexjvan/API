@@ -1,13 +1,43 @@
 package com.brokencube.api.server.commands;
 
 import com.brokencube.api.API;
+import com.brokencube.api.Messages;
 import com.brokencube.api.command.Command;
+import com.brokencube.api.command.exceptions.CommandNotFoundException;
+import com.brokencube.api.command.exceptions.IncorrectArgumentsException;
+import com.brokencube.api.command.exceptions.NoPermsException;
+import com.brokencube.api.user.Executor;
 
 public class Command_DB extends Command {
+	public Command_DB_Reset reset;
+	public Command_DB_Status status;
 
 	public Command_DB(API instance) {
-			// api		command		description					perm	use	  alias	default
-		super(instance, "database", "Commands for the database", "db", "/db", "db", "db status");
+		super(instance, "database");
+		addAlternative("db");
+		this.reset = new Command_DB_Reset(this);
+		this.status = new Command_DB_Status(this);
+		children.add(reset);
+		children.add(status);
+	}
+
+	@Override
+	public void exe(Executor e, String[] split) throws CommandNotFoundException, IncorrectArgumentsException, NoPermsException {
+		if(split.length == 1) {
+			try {
+				status.exe(e, split);
+			} catch(NoPermsException ex) {
+				e.sendMessage(Messages.nopermsbut);
+			}
+		} else if(split.length == 2 ) {
+			if(split[1].equalsIgnoreCase("reset"))
+				reset.exe(e, split);
+			else if(split[1].equalsIgnoreCase("status"))
+				status.exe(e, split);
+			else
+				throw new CommandNotFoundException();
+		} else
+			throw new IncorrectArgumentsException();
 	}
 	
 }

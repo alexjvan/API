@@ -4,15 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.brokencube.api.API;
+import com.brokencube.api.user.Console;
 
 public class RankManager {
 	private API instance;
+	private Console console;
 	public List<Rank> ranks = new ArrayList<Rank>();
 	
 	public RankManager(API instance) {
 		this.instance = instance;
 		grabRanks();
 		grabInheritance();
+		// let rank be created
+		this.console = new Console(instance);
 	}
 	
 	private void grabRanks() {
