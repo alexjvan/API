@@ -31,6 +31,11 @@ public class Command_Perms_Unregistered extends SubCommand {
 			else
 				e.sendMessage("&c"+checkPerm);
 		}
+		// redo - some may have been removed
+		if(instance.getPR().permsReqNotFound.size() == 0) {
+			e.sendMessage(Messages.success+"There are no more requested and unfound permissions!");
+			return;
+		}
 	}
 	
 }

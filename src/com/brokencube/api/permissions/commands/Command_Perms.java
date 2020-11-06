@@ -22,7 +22,9 @@ public class Command_Perms extends Command {
 
 	@Override
 	public void exe(Executor e, String[] split) throws CommandNotFoundException, IncorrectArgumentsException, NoPermsException {
-		if(split.length == 2) {
+		if(split.length == 1)
+			unregistered.exe(e, split);
+		else if(split.length == 2) {
 			if(split[1].equalsIgnoreCase("unregistered"))
 				unregistered.exe(e, split);
 			else

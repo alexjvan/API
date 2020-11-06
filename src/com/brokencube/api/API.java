@@ -20,6 +20,7 @@ import com.brokencube.api.ranks.RankManager;
 import com.brokencube.api.ranks.commands.Command_Rank;
 import com.brokencube.api.server.Database;
 import com.brokencube.api.server.commands.Command_DB;
+import com.brokencube.api.user.Console;
 import com.brokencube.api.user.UserRegister;
 import com.brokencube.api.user.listeners.Event_PlayerJoin_DB;
 
@@ -75,6 +76,8 @@ public class API extends JavaPlugin {
 		
 		// RANKS NEED TO BE BEFORE USERS
 		rm = new RankManager(this);
+		// do this here cuz throw error that rm doesn't exist otherwise
+		rm.console = new Console(this);
 		ur = new UserRegister(this);
 		
 		// CONFIG
