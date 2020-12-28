@@ -64,11 +64,10 @@ public class User extends Executor {
 
 	@Override
 	public boolean hasPermission(String perm) {
-		if(rank.hasPermission(perm)) {
+		if(rank.hasPermission(perm))
 			return true;
-		} else if(additionalPermissions.contains(perm)) {
+		else if(additionalPermissions.contains(perm))
 			return true;
-		}
 		return false;		
 	}
 	

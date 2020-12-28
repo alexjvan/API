@@ -2,10 +2,8 @@ package com.brokencube.api.user;
 
 import org.bukkit.command.CommandSender;
 
-import com.brokencube.api.API;
 import com.brokencube.api.chat.ColorReplacer;
 import com.brokencube.api.ranks.Rank;
-import com.brokencube.api.ranks.SimpleRank;
 
 public abstract class Executor {
 	

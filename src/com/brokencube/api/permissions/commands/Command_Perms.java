@@ -18,6 +18,8 @@ public class Command_Perms extends Command {
 		this.unregistered = new Command_Perms_Unregistered(this);
 		children.add(set);
 		children.add(unregistered);
+		this.useCase = "/permissions(perms) help";
+		this.description = "All permissions related commands.";
 	}
 
 	@Override

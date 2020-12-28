@@ -24,11 +24,12 @@ public class Command_Commands_List extends SubCommand {
 			
 	public Command_Commands_List(Command_Commands parent) {
 		super(parent, "commands.list");
+		this.useCase = "/commands list [page#]";
+		this.description = "List the commands available to you.";
 	}
 
 	@Override
-	public void exe(Executor e, String[] split)
-			throws CommandNotFoundException, IncorrectArgumentsException, NoPermsException {
+	public void exe(Executor e, String[] split) throws CommandNotFoundException, IncorrectArgumentsException, NoPermsException {
 		if(!e.hasPermission(permString))
 			throw new NoPermsException();
 		
@@ -61,7 +62,7 @@ public class Command_Commands_List extends SubCommand {
 		if(user.size() % numCmdsToSend != 0)
 			pages++;
 		
-		e.sendMessage(Messages.general + "-------===[Help Page " + Messages.success + page + Messages.general + " / " + Messages.success + pages + Messages.general + "]===-------");
+		e.sendMessage(Messages.general + "--------------===[Help Page " + Messages.success + page + Messages.general + " / " + Messages.success + pages + Messages.general + "]===--------------");
 		e.sendMessage(ColorReplacer.colorize("&8Key: &7<> &8are required arguments, &7[] &8are optional arguments."));
 		if(page > pages) {
 			return;
@@ -70,11 +71,11 @@ public class Command_Commands_List extends SubCommand {
 		int toSend = numCmdsToSend;
 		if(page == 1) {
 			toSend--;
-			e.sendMessage(ColorReplacer.colorize("&8For more commands type in /help [page #]"));
+			e.sendMessage(ColorReplacer.colorize("&8For more commands type in /commands list [page #]"));
 		}
 		
 		for(int i = 0; i < toSend; i++) {
-			int sendIndex = ((page - 1) * numCmdsToSend - 1) + i;
+			int sendIndex = ((page - 1) * (numCmdsToSend - 1)) + i;
 			if(sendIndex < user.size()) {
 				e.sendMessage(ColorReplacer.colorize("&b" + user.get(sendIndex).useCase + " &6| &f"+user.get(sendIndex).description));
 			}

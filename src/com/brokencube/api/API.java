@@ -64,6 +64,10 @@ public class API extends JavaPlugin {
 		conf.tryAddValue("worlds.default.pvp", false);
 		conf.tryAddValue("worlds.default.structures", false);
 		conf.tryAddValue("worlds.default.type", "Normal");
+		
+		// RANKS NEED TO BE BEFORE USERS
+		// RANKS ALSO NEEDS TO BE BEFORE OTHER THINGS LIKE COMMAND AND PERMISSION REGISTER TO LOAD THE RANKS
+		rm = new RankManager(this);
 	}
 	
 	@Override
@@ -73,9 +77,6 @@ public class API extends JavaPlugin {
 		// CONFIG NEEDS TO BE AFTER PERMISSIONS
 		cr = new CommandRegister();
 		pr = new PermissionsRegister(this);
-		
-		// RANKS NEED TO BE BEFORE USERS
-		rm = new RankManager(this);
 		// do this here cuz throw error that rm doesn't exist otherwise
 		rm.console = new Console(this);
 		ur = new UserRegister(this);

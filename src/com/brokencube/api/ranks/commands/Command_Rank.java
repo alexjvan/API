@@ -17,6 +17,8 @@ public class Command_Rank extends Command {
 		super(api, "rank");
 		this.view = new Command_Rank_View(this);
 		children.add(view);
+		this.useCase = "/rank help";
+		this.description = "All rank related commands.";
 	}
 
 	@Override

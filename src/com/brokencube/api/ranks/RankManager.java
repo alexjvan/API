@@ -21,7 +21,7 @@ public class RankManager {
 		List<String[]> results = instance.getDB().getQuery("SELECT id, name, prefix, booster FROM ranks");
 		for(int i = 0; i < results.size(); i++) {
 			String[] cur = results.get(i);
-			Rank newRank = new Rank(instance, cur[1], cur[2], Integer.parseInt(cur[3]), SimpleRank.getFromNum(Integer.parseInt(cur[0])));
+			Rank newRank = new Rank(instance, Integer.parseInt(cur[0]), cur[1], cur[2], Integer.parseInt(cur[3]));
 			ranks.add(newRank);
 		}
 	}
@@ -31,21 +31,24 @@ public class RankManager {
 		List<String[]> results = instance.getDB().getQuery("SELECT rankid, inheritsid FROM rank_inheritance");
 		for(int i = 0; i < results.size(); i++) {
 			String[] cur = results.get(i);
-			Rank obj = getRankFromSRank(SimpleRank.getFromNum(Integer.parseInt(cur[0])));
-			Rank inhs = getRankFromSRank(SimpleRank.getFromNum(Integer.parseInt(cur[1])));
+			Rank obj = getRankFromNum(Integer.parseInt(cur[0]));
+			Rank inhs = getRankFromNum(Integer.parseInt(cur[1]));
 			obj.inherits.add(inhs);
 			inhs.inheritedBy.add(obj);
 		}
 	}
 	
-	public Rank getRankFromSRank(SimpleRank sRank) {
-		if(sRank == null)
-			throw new NullPointerException();
-		for(int i = 0; i < ranks.size(); i++) {
-			if(ranks.get(i).name.equalsIgnoreCase(sRank.name())) {
+	public Rank getRankFromName(String name) {
+		for(int i = 0; i < ranks.size(); i++)
+			if(ranks.get(i).name.equals(name))
 				return ranks.get(i);
-			}
-		}
+		return null;
+	}
+	
+	public Rank getRankFromNum(int num) {
+		for(int i = 0; i < ranks.size(); i++)
+			if(ranks.get(i).num == num)
+				return ranks.get(i);
 		return null;
 	}
 }

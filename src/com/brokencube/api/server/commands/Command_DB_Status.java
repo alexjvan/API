@@ -11,6 +11,8 @@ public class Command_DB_Status extends SubCommand {
 	
 	public Command_DB_Status(Command parent) {
 		super(parent, "db.status");
+		this.useCase = "/database status";
+		this.description = "Check the database's connection status.";
 	}
 	
 	@Override

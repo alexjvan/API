@@ -10,6 +10,8 @@ import com.brokencube.api.user.Executor;
 public class Command_DB_Reset extends SubCommand {
 	public Command_DB_Reset(Command parent) {
 		super(parent, "db.reset");
+		this.useCase = "/database reset";
+		this.description = "Reset the database connection.";
 	}
 	
 	@Override

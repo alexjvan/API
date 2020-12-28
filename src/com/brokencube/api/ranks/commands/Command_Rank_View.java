@@ -15,6 +15,8 @@ public class Command_Rank_View extends SubCommand {
 	
 	public Command_Rank_View(Command parent) {
 		super(parent, "rank.view");
+		this.useCase = "/rank view";
+		this.description = "View what rank you are.";
 	}
 	
 	@Override

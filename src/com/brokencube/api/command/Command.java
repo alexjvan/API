@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.brokencube.api.API;
-import com.brokencube.api.ranks.SimpleRank;
+import com.brokencube.api.ranks.Rank;
 
 public abstract class Command extends CommandBase {
 	protected API instance;
@@ -13,11 +13,12 @@ public abstract class Command extends CommandBase {
 	
 	public List<SubCommand> children = new ArrayList<SubCommand>();
 	
-	SimpleRank lowestPermNeeded = SimpleRank.Undefined;
+	Rank lowestPermNeeded;
 
 	public Command(API instance, String starter) {
 		this.instance = instance;
 		this.starter = starter;
+		lowestPermNeeded = instance.getRM().getRankFromName("Undefined");
 	}
 	
 	public boolean isCommand(String check) {
@@ -38,7 +39,7 @@ public abstract class Command extends CommandBase {
 		return this.starter;
 	}
 	
-	public SimpleRank getLowestPermNeeded() {
+	public Rank getLowestPermNeeded() {
 		return this.lowestPermNeeded;
 	}
 	

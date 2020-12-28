@@ -5,13 +5,14 @@ import java.util.List;
 import java.util.TreeMap;
 
 import com.brokencube.api.API;
+import com.brokencube.api.command.Command;
+import com.brokencube.api.command.SubCommand;
 import com.brokencube.api.ranks.Rank;
-import com.brokencube.api.ranks.SimpleRank;
 
 public class PermissionsRegister {
 	private API instance;
 	
-	public TreeMap<String, SimpleRank> perms = new TreeMap<String, SimpleRank>();
+	public TreeMap<String, Rank> perms = new TreeMap<String, Rank>();
 	
 	public List<String> permsReqNotFound = new ArrayList<String>();
 	
@@ -24,32 +25,33 @@ public class PermissionsRegister {
 		List<String[]> results = instance.getDB().getQuery("SELECT permission, rankid FROM permissions");
 		for(int i = 0; i < results.size(); i++) {
 			String[] row = results.get(i);
-			perms.put(row[0], SimpleRank.getFromNum(Integer.parseInt(row[1])));
+			assignPermission(row[0], instance.getRM().getRankFromNum(Integer.parseInt(row[1])));
 		}
 	}
 
-	public void assignPermission(String perm, SimpleRank sRank) {
-		perms.put(perm, sRank);
-	}
-	
-	public boolean doesRankHavePerm(Rank r, String perm) {
-		SimpleRank sr = perms.get(perm);
-		if(sr == null) {
-			this.permsReqNotFound.add(perm);
-			return false;
+	public void assignPermission(String perm, Rank rank) {
+		perms.put(perm, rank);
+		rank.perms.add(perm);
+		List<Command> cmds = instance.getCR().getCommands();
+		for(int u = 0; u < cmds.size(); u++) {
+			List<SubCommand> subs = cmds.get(u).children;
+			for(int i = 0; i < subs.size(); i++) {
+				if(subs.get(i).permString.equals(perm)) {
+					subs.get(i).regrabPerm();
+					return;
+				}
+			}
 		}
-		Rank or = instance.getRM().getRankFromSRank(sr);
-		return r.inherits(or.sRank);
 	}
 	
-	public TreeMap<String, SimpleRank> getPerms() {
+	public TreeMap<String, Rank> getPerms() {
 		return this.perms;
 	}
 
-	public SimpleRank getRank(String permString) {
+	public Rank getRank(String permString) {
 		if(!perms.containsKey(permString)) {
 			this.permsReqNotFound.add(permString);
-			return SimpleRank.Undefined;
+			return instance.getRM().getRankFromName("Undefined");
 		}
 		return perms.get(permString);
 	}

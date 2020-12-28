@@ -12,6 +12,8 @@ public class Command_Perms_Unregistered extends SubCommand {
 	
 	public Command_Perms_Unregistered(Command parent) {
 		super(parent, "perms.unregistered");
+		this.useCase = "/permissions unregistered";
+		this.description = "Get a list of all of the permissions in the game that have no rank assigned.";
 	}
 	
 	@Override
