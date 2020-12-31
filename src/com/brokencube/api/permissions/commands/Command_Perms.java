@@ -16,8 +16,6 @@ public class Command_Perms extends Command {
 		addAlternative("perms");
 		this.set = new Command_Perms_Set(this);
 		this.unregistered = new Command_Perms_Unregistered(this);
-		children.add(set);
-		children.add(unregistered);
 		this.useCase = "/permissions(perms) help";
 		this.description = "All permissions related commands.";
 	}

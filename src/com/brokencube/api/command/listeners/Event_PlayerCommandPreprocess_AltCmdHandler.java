@@ -6,6 +6,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 import com.brokencube.api.API;
 import com.brokencube.api.Messages;
+import com.brokencube.api.command.CmdSectionHelp;
 import com.brokencube.api.command.Command;
 import com.brokencube.api.command.exceptions.CommandNotFoundException;
 import com.brokencube.api.command.exceptions.IncorrectArgumentsException;
@@ -28,6 +29,20 @@ public class Event_PlayerCommandPreProcess_AltCmdHandler implements Listener {
 		String[] split = cmd.split(" ");
 		if(split.length == 0) 
 			split = new String[] {cmd};
+		else if(split.length > 1 && split[1].equals("help")) {
+			System.out.println(split[1]);
+			// <cmd section> help [pg#]
+			String cmdSection = split[0];
+			if(split.length > 2 && split.length == 3) {
+				int page = Integer.parseInt(split[2]);
+				CmdSectionHelp.help(u, cmdSection, page);
+			} else {
+				CmdSectionHelp.help(u, cmdSection, 1);
+			}
+			
+			e.setCancelled(true);
+			return;
+		}
 		
 		Command c = instance.getCR().getCommand(cmd);
 		// command null at line below - command not being found

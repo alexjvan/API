@@ -6,6 +6,7 @@ import org.bukkit.event.server.ServerCommandEvent;
 
 import com.brokencube.api.API;
 import com.brokencube.api.Messages;
+import com.brokencube.api.command.CmdSectionHelp;
 import com.brokencube.api.command.Command;
 import com.brokencube.api.command.exceptions.CommandNotFoundException;
 import com.brokencube.api.command.exceptions.IncorrectArgumentsException;
@@ -28,11 +29,24 @@ public class Event_ServerCommand_AltCmdHandler implements Listener {
 		String[] split = cmd.split(" ");
 		if(split.length == 0) 
 			split = new String[] {cmd};
+		else if(split.length > 1 && split[1] == "help") {
+			// <cmd section> help [pg#]
+			String cmdSection = split[0];
+			if(split.length > 2 && split.length == 3) {
+				int page = Integer.parseInt(split[2]);
+				CmdSectionHelp.help(c, cmdSection, page);
+			} else {
+				CmdSectionHelp.help(c, cmdSection, 1);
+			}
+		}
 		
 		Command cm = instance.getCR().getCommand(cmd);
 		
-		if(cm == null)
+		if(cm == null) {
 			c.sendMessage(Messages.nocmd);
+			e.setCancelled(true);
+			return;
+		}
 		
 		try {
 			cm.consoleExe(c, split);

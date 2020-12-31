@@ -17,8 +17,6 @@ public class Command_DB extends Command {
 		addAlternative("db");
 		this.reset = new Command_DB_Reset(this);
 		this.status = new Command_DB_Status(this);
-		children.add(reset);
-		children.add(status);
 		this.useCase = "/database(db) help";
 		this.description = "All database related commands.";
 	}

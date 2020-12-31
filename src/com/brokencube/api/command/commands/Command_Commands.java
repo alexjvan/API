@@ -15,7 +15,6 @@ public class Command_Commands extends Command {
 		super(api, "commands");
 		this.addAlternative("cmds");
 		this.list = new Command_Commands_List(this);
-		children.add(list);
 		this.useCase = "/commands help";
 		this.description = "All command related commands.";
 	}
