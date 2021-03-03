@@ -28,7 +28,7 @@ public class Command_Rank extends Command {
 	
 	@Override
 	public void userExe(User u, String[] split) throws CommandNotFoundException, IncorrectArgumentsException, NoPermsException {
-		exe((Executor)u, split);
+		exe(u, split);
 	}
 	
 	@Override

@@ -46,10 +46,10 @@ public abstract class CommandBase {
 	
 	// Execution
 	public void userExe(User u, String[] split) throws CommandNotFoundException, IncorrectArgumentsException, NoPermsException {
-		exe((Executor)u, split);
+		exe(u, split);
 	}
 	public void consoleExe(Console c, String[] split) throws CommandNotFoundException, IncorrectArgumentsException, NoConsoleImplementationException, NoPermsException {
-		exe((Executor)c, split);
+		exe(c, split);
 	}
 	public abstract void exe(Executor e, String[] split) throws CommandNotFoundException, IncorrectArgumentsException, NoPermsException;
 

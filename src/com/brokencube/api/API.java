@@ -23,6 +23,7 @@ import com.brokencube.api.server.commands.Command_DB;
 import com.brokencube.api.user.Console;
 import com.brokencube.api.user.UserRegister;
 import com.brokencube.api.user.listeners.Event_PlayerJoin_DB;
+import com.brokencube.api.worlds.WorldManager;
 
 public class API extends JavaPlugin {
 	private Database db;
@@ -31,6 +32,7 @@ public class API extends JavaPlugin {
 	private CommandRegister cr;
 	private RankManager rm;
 	private PluginRegister plug;
+	private WorldManager wm;
 	
 	ConfigFile conf;
 	
@@ -94,6 +96,9 @@ public class API extends JavaPlugin {
 		
 		conf.tryAddValue("permissionOverride", new ArrayList<Object>());
 		
+		// World Manager
+		wm = new WorldManager(this);
+		
 		// ---==Commands==---
 		cr.registerCommand(new Command_Commands(this));
 		cr.registerCommand(new Command_DB(this));
@@ -145,5 +150,13 @@ public class API extends JavaPlugin {
 
 	public PluginRegister getPlug() {
 		return this.plug;
+	}
+	
+	public WorldManager getWM() {
+		return this.wm;
+	}
+	
+	public void setAltWorldManager(WorldManager wm) {
+		this.wm = wm;
 	}
 }
